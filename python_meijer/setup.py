@@ -10,10 +10,10 @@ setup(
     license='MIT',
     packages=['meijer'],
     install_requires=[
-        'cached-property==1.5.2', 'certifi==2021.10.8', 'charset-normalizer==2.0.7', 'idna==3.3', 'requests==2.26.0', 'urllib3==1.26.7'],
+        'cached-property', 'certifi', 'charset-normalizer', 'idna', 'requests', 'urllib3'],
 
     classifiers=[
-        'Development Status :: 1 - Beta',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: BSD License',
         'Operating System :: POSIX :: Linux',
