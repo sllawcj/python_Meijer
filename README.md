@@ -1,25 +1,50 @@
 # ```python-meijer```
 
-- What: Reverse engineered API for Meijer apps & services.
+- What: Reverse engineered API for Meijer shopping list.
 - Why: I can't actually get in contact with a Meijer Engineer. Their Facebook team just "takes feedback."
   On n'est jamais servi si bien que par soi-même.
 - How: [mitmproxy](https://mitmproxy.org/), Python with [requests](http://docs.python-requests.org/en/master/)
 
-## Usage
+## Installation 
 
-Still alpha/beta quality. Also my project for dephell/poetry exploration.
+pip install -e "git+https://github.com/dapperfu/python_Meijer.git#subdirectory=meijer&#egg=meijer" 
+
+## Development Installation
 
 ```
 git clone https://github.com/dapperfu/python_Meijer.git
 cd python_Meijer
-# Create virtual environment
-make venv
+# Create & Activate virtual environment
+python3 -mvenv venv
+source venv/bin/activate
+# Install development li
+pip install -U pip wheel setuptools
+pip install -r requirements.txt
+```
 
+## Usage
+
+Meijer login information is stored in the environmental variable `MEIJER_API_KEY`.
+
+```export MEIJER_API_KEY="user|pass"```
+
+1. *Don't use the same login for Meijer's shopping list as your Bank, 'k?*
+2. If you use a `|` in your password, you can edit the delimiter in `Meijer.py`
+
+### Shell completion.
+
+Shell completion through [click](https://click.palletsprojects.com/en/8.1.x/shell-completion/)
+
+Add `meijer` Bash completion to the terminal:
+
+```
+_meijer_COMPLETE=bash_source meijer > ~/.meijer-complete.bash
+echo ". ~/.meijer-complete.bash" >> ~/.bashrc
 ```
 
 ### Shopping list.
 
-Click help:
+
 
 ```
 $ meijer list
@@ -77,7 +102,7 @@ $ meijer list show
 [ ] 1% Milk
 ```
 
-## Tools.
+## Development Tools.
 
 - [HTC One M7](https://www.htc.com/us/smartphones/htc-one-m7/).
 - Android 6. [Android 7.0+ makes it very difficult to use self signed certs](https://github.com/mitmproxy/mitmproxy/issues/2054#issuecomment-281836486). It's just easier to have an old device laying around for MITM proxy. It is still possible but requires root and more steps than "Install Cert".
@@ -112,26 +137,11 @@ The Meijer "[Shop & Scan](https://www.meijer.com/content/content.jsp?pageName=sh
 
 Decompiling the Meijer.apk it looks like it's mostly just a REST app. So I setup a mitmproxy to watch for traffic.
 
-End goal is for Meijer PR/Engineering to either incorporate my ideas or me to have my own shopping tool, whichever comes first.
-
 ## Lessons Learned
 
 ### Misc.
 
 - Shopping lists doesn't support Unicode, no emoji's for you.
-
-### Security Disclosure
-
-Prior to Nov 2018 the Meijer backend would leak personal information if you looped through an index.
-
-- Don't make your mPerks PIN the same as your ATM PIN.
-- Change them if they are.
-
-[Security Disclosure Notebook sent to Meijer, Nov 2018](https://nbviewer.jupyter.org/github/jed-frey/python_Meijer/blob/master/v1/Meijer%20Security%20Disclosure.ipynb).
-
-![](security.png)
-
-{Meijer was informed of this Nov 2018. If Meijer did not inform you that your data may have been accessed, take it up with them.}
 
 ### You can't trick the Meijer App with mock locations.
 
